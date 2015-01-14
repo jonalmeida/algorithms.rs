@@ -1,0 +1,13 @@
+[package]
+
+name = "algorithms"
+version = "0.0.1"
+authors = ["Jonathan Almeida <git@jonalmeida.com>"]
+description = "Classic algorithms and data structures implemented in Rust."
+homepage = "https://github.com/jonalmeida/algorithms.rs"
+repository = "https://github.com/jonalmeida/algorithms.rs"
+readme = "README.md"
+license = "MIT"
+
+[lib]
+name = "algorithms"
