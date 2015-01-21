@@ -5,4 +5,4 @@ Classic algorithms and data structures implemented in Rust. (Inspired by [algori
 
 # WIP
 
-> TBD
+> TBD More docs and info
