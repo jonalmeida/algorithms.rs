@@ -1,17 +1,17 @@
 
+#[derive(Show,PartialEq)]
 struct Node<T> {
     payload: T,
-    next: Box<Option<Node<T>>>,
-    previous: Box<Option<Node<T>>>,
+    next: Option<Box<Node<T>>>,
+    previous: Option<Box<Node<T>>>,
 }
-
 
 impl<T> Node<T> {
     pub fn new(payload: T) -> Node<T> {
         Node::<T> {
             payload: payload,
-            next: Box::new(None),
-            previous: Box::new(None),
+            next: None,
+            previous: None,
         }
     }
 
@@ -21,13 +21,13 @@ impl<T> Node<T> {
 }
 
 struct LinkedList<T> {
-    root: Box<Option<Node<T>>>,
+    root: Option<Node<T>>,
 }
 
 impl<T> LinkedList<T> {
     pub fn new() -> LinkedList<T> {
         LinkedList::<T> {
-            root: Box::new(None),
+            root: None,
         }
     }
 
@@ -48,9 +48,10 @@ impl<T> LinkedList<T> {
 fn test_node_new() {
     let expected = Node {
         payload: "test",
-        next: Box::new(None),
-        previous: Box::new(None),
+        next: None,
+        previous: None,
     };
+
     let node: Node<&str> = Node::new("test");
 
     assert_eq!(expected.payload,  node.payload);
