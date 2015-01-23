@@ -3,7 +3,7 @@
 struct Node<T> {
     payload: T,
     next: Option<Box<Node<T>>>,
-    previous: Option<Box<Node<T>>>,
+    prev: Option<Box<Node<T>>>,
 }
 
 impl<T> Node<T> {
@@ -11,7 +11,7 @@ impl<T> Node<T> {
         Node::<T> {
             payload: payload,
             next: None,
-            previous: None,
+            prev: None,
         }
     }
 
@@ -49,14 +49,14 @@ fn test_node_new() {
     let expected = Node {
         payload: "test",
         next: None,
-        previous: None,
+        prev: None,
     };
 
     let node: Node<&str> = Node::new("test");
 
     assert_eq!(expected.payload,  node.payload);
     assert_eq!(expected.next,     node.next);
-    assert_eq!(expected.previous, node.previous);
+    assert_eq!(expected.prev,     node.prev);
 }
 
 #[test]
