@@ -20,32 +20,50 @@ impl<T> Node<T> {
     }
 }
 
-struct LinkedList<T> {
-    root: Option<Node<T>>,
+pub struct LinkedList<T> {
+    head: Option<Box<Node<T>>>,
+    tail: Option<Box<Node<T>>>,
 }
 
 impl<T> LinkedList<T> {
     pub fn new() -> LinkedList<T> {
         LinkedList::<T> {
-            root: None,
+            head: None,
+            tail: None,
         }
     }
 
-    fn add(node: Node<T>) {
+    pub fn add(&mut self, payload: T) {
 
-        let last_node = &node;
+        match self.head {
+            None            => self.head = Some(Box::new(Node::new(payload))),
+            Some(ref ptr)   => {
+                let mut node_ptr = ptr;
+                loop {
 
-        //loop {
-        //    if last_node.payload == None {
-        //        last_node = node;
-        //        break;
-        //    }
-        //}
+                    match node_ptr.next {
+                        None => {
+                            println!("this is the last");
+                            /*node_ptr.next = Some(Box::new(Node {
+                                payload: payload,
+                                next: None,
+                                prev: None, //Some(Box::new(&node_ptr)),
+                            }));*/
+                            break;
+                        },
+                        Some(ref ptr)   => {
+                            node_ptr = ptr;
+                        },
+                    }
+
+                }
+            },
+        }
     }
 }
 
 #[test]
-fn test_node_new() {
+fn node_new() {
     let expected = Node {
         payload: "test",
         next: None,
@@ -60,7 +78,30 @@ fn test_node_new() {
 }
 
 #[test]
-fn test_node_payload() {
+fn node_payload() {
     let node: Node<&str> = Node::new("test");
     assert_eq!(&"test", node.payload().unwrap());
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn new_linked_list() {
+        let mut list: super::LinkedList<String> = super::LinkedList::new();
+        list.add("first".to_string());
+        println!("Value added: {}", list.head.unwrap().payload);
+        //assert_eq!(list.head.unwrap().payload, "first".to_string());
+    }
+
+    #[test]
+    fn multiple_nodes() {
+        let mut list: super::LinkedList<String> = super::LinkedList::new();
+        list.add("first".to_string());
+        list.add("second".to_string());
+        //println!("Value added: {}", list.head.unwrap().payload);
+        //assert_eq!(list.head.unwrap().payload, "first".to_string());
+    }
+
 }
