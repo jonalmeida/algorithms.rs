@@ -31,6 +31,28 @@ impl<T> Node<T> {
         mem::swap(&mut new.prev, &mut self.prev);
         mem::replace(&mut self.prev, Some(new))
     }
+
+    pub fn next(&mut self) -> Option<&mut T> {
+        let Node {
+            ref mut payload,
+            ref mut prev,
+            ref mut next,
+        } = *self;
+
+        match *next {
+            Some(ref mut next) => {
+                mem::swap(&mut next.payload, payload);
+
+                let mut next = &mut **next;     // Cannot completely understand this bit yet.
+                mem::swap(&mut next.next, &mut next.prev);
+
+                mem::swap(&mut next.prev, prev);
+            },
+            None    => return None,
+        }
+        mem::swap(prev, next);
+        Some(payload)
+    }
 }
 
 pub struct LinkedList<T> {
