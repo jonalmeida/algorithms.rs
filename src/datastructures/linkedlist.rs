@@ -90,6 +90,14 @@ fn node_payload() {
     assert_eq!(&"test", node.payload().unwrap());
 }
 
+#[test]
+fn node_insert_after() {
+    let mut node: Node<&str> = Node::new("one");
+    node.insert_after(Box::new(Node::new("two")));
+    assert_eq!("two", node.next.unwrap().payload);
+
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
