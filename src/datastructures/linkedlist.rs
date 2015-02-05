@@ -2,7 +2,7 @@ use std::mem;
 
 /// Lots of thanks to reem and Sharp for help with this from the #rust channel
 
-#[derive(Show,PartialEq)]
+#[derive(Debug,PartialEq)]
 struct Node<T> {
     pub payload: T,
     next: Option<Box<Node<T>>>,
@@ -96,6 +96,13 @@ fn node_insert_after() {
     node.insert_after(Box::new(Node::new("two")));
     assert_eq!("two", node.next.unwrap().payload);
 
+}
+
+#[test]
+fn node_insert_before() {
+    let mut node: Node<&str> = Node::new("two");
+    node.insert_before(Box::new(Node::new("one")));
+    assert_eq!("one", node.prev.unwrap().payload);
 }
 
 #[cfg(test)]
