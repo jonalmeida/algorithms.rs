@@ -1,5 +1,5 @@
 //! A LinkedList that lets you insert elements from the front or the end of the list.
-//! TBD: Add the ability to insert in-between a Node.
+//! TODO: Add the ability to insert in-between a Node.
 //! Lots of thanks to reem and Sharp for help with this from the #rust channel
 
 use std::mem;
@@ -45,6 +45,28 @@ impl<T> Node<T> {
         mem::replace(&mut self.prev, Some(new))
     }
 
+    /*pub fn remove_after(&mut self) -> Option<Box<Node<T>>> {
+        //! Removes the Node after the current node.
+        match self.next.take() {
+            Some(mut next)  => {
+                mem::swap(&mut self.next, &mut next.next);
+                Some(next)
+            },
+            None => None,
+        }
+    }*/
+
+    pub fn remove_before(&mut self) -> Option<Box<Node<T>>> {
+        //! Removes the Node before the current node.
+        match self.prev.take() {
+            Some(mut prev)  => {
+                mem::swap(&mut self.prev, &mut prev.prev);
+                Some(prev)
+            },
+            None => None,
+        }
+    }
+
     pub fn next(&mut self) -> Option<&mut T> {
         //! Goes to the next Node and returns an Option to it.
         let Node {
@@ -81,7 +103,7 @@ pub struct LinkedList<T> {
 
 impl<T> LinkedList<T> {
     pub fn new() -> LinkedList<T> {
-        /// Create a new LinkedList to contain a payloads with type T.
+        //! Create a new LinkedList to contain a payloads with type T.
         LinkedList::<T> {
             head: None,
             tail: None,
