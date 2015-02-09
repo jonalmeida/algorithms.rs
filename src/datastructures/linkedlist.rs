@@ -26,7 +26,7 @@ impl<T> Node<T> {
         }
     }
 
-    pub fn payload(&mut self) -> Option<&T> {
+    pub fn payload(&self) -> Option<&T> {
         //! Access to a payload of Node.
         Some(&self.payload)
     }
