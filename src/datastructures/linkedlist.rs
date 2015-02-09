@@ -69,13 +69,19 @@ impl<T> Node<T> {
     }
 }
 
+/// A LinkedList is the struct that you would need to use to create a list of elements.
+/// It contains a pointer to the first and last node in the list represented as `head and `tail`
+/// respectively.
 pub struct LinkedList<T> {
+    /// First element in the list.
     head: Option<Box<Node<T>>>,
+    /// Last element in the list.
     tail: Option<Box<Node<T>>>,
 }
 
 impl<T> LinkedList<T> {
     pub fn new() -> LinkedList<T> {
+        /// Create a new LinkedList to contain a payloads with type T.
         LinkedList::<T> {
             head: None,
             tail: None,
