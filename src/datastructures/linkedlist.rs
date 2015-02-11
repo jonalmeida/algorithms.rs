@@ -45,7 +45,7 @@ impl<T> Node<T> {
         mem::replace(&mut self.prev, Some(new))
     }
 
-    /*pub fn remove_after(&mut self) -> Option<Box<Node<T>>> {
+    pub fn remove_after(&mut self) -> Option<Box<Node<T>>> {
         //! Removes the Node after the current node.
         match self.next.take() {
             Some(mut next)  => {
@@ -54,7 +54,7 @@ impl<T> Node<T> {
             },
             None => None,
         }
-    }*/
+    }
 
     pub fn remove_before(&mut self) -> Option<Box<Node<T>>> {
         //! Removes the Node before the current node.
@@ -84,7 +84,29 @@ impl<T> Node<T> {
 
                 mem::swap(&mut next.prev, prev);
             },
-            None    => return None,
+            None => return None,
+        }
+        mem::swap(prev, next);
+        Some(payload)
+    }
+
+    pub fn prev(&mut self) -> Option<&mut T> {
+        let Node {
+            ref mut payload,
+            ref mut prev,
+            ref mut next,
+        } = *self;
+
+        match *prev {
+            Some(ref mut prev) => {
+                mem::swap(&mut prev.payload, payload);
+
+                let mut prev = &mut **prev;     // Still don't understand this bit.
+                mem::swap(&mut prev.prev, &mut prev.next);
+
+                mem::swap(&mut prev.next, next);
+            },
+            None => return None,
         }
         mem::swap(prev, next);
         Some(payload)
