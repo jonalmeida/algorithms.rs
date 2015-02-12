@@ -169,6 +169,20 @@ fn node_insert_before() {
     assert_eq!("one", node.prev.unwrap().payload);
 }
 
+#[test]
+fn node_remove_next() {
+    let mut node: Node<&str> = Node::new("one");
+    node.insert_after(Box::new(Node::new("two")));
+    node.remove_after();
+}
+
+#[test]
+fn node_remove_prev() {
+    let mut node: Node<&str> = Node::new("one");
+    node.insert_before(Box::new(Node::new("two")));
+    node.remove_before();
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
