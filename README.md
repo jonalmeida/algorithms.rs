@@ -4,7 +4,10 @@
 
 Classic algorithms and data structures implemented in Rust. (Inspired by [algorithms.js](https://github.com/felipernb/algorithms.js))
 
+**Pull requests warmly welcomed!**
 
-# WIP
+# Contents
 
-> TBD More docs and info
+## Data Structures
+
+- (Doubly) Linked list
