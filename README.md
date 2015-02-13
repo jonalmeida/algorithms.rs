@@ -6,8 +6,18 @@ Classic algorithms and data structures implemented in Rust. (Inspired by [algori
 
 **Pull requests warmly welcomed!**
 
-# Contents
+### Building
+```
+cargo build
+```
 
-## Data Structures
+### Installing
+```
+TBD
+```
+
+### Contents
+
+#### Data Structures
 
 - (Doubly) Linked list
