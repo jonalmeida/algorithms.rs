@@ -159,7 +159,6 @@ fn node_insert_after() {
     let mut node: Node<&str> = Node::new("one");
     node.insert_after(Box::new(Node::new("two")));
     assert_eq!("two", node.next.unwrap().payload);
-
 }
 
 #[test]
@@ -181,6 +180,20 @@ fn node_remove_prev() {
     let mut node: Node<&str> = Node::new("one");
     node.insert_before(Box::new(Node::new("two")));
     node.remove_before();
+}
+
+#[test]
+fn node_next() {
+    let mut node: Node<&str> = Node::new("one");
+    node.insert_after(Box::new(Node::new("two")));
+    assert_eq!("two", *node.next().unwrap());
+}
+
+#[test]
+fn node_prev() {
+    let mut node: Node<&str> = Node::new("two");
+    node.insert_before(Box::new(Node::new("one")));
+    assert_eq!("one", *node.prev().unwrap());
 }
 
 #[cfg(test)]
