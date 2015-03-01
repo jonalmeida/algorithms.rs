@@ -131,6 +131,18 @@ impl<T> LinkedList<T> {
             tail: None,
         }
     }
+
+    pub fn push_back(&mut self, mut new: T) {
+        let new_node = Box::new(Node::new(new));
+        match self.tail {
+            Some(ref mut tail_node) => {
+                tail_node.insert_after(new_node);
+            },
+            None => {
+                mem::swap(&mut self.tail, &mut Some(new_node));
+            },
+        }
+    }
 }
 
 #[test]
