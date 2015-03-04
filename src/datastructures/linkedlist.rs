@@ -212,4 +212,10 @@ fn node_prev() {
 mod tests {
     use super::*;
 
+    #[test]
+    fn test_one() {
+        let mut list: LinkedList<String> = LinkedList::new();
+        list.push_back("one".to_string());
+        assert_eq!("one".to_string(), list.tail.unwrap().payload);
+    }
 }
