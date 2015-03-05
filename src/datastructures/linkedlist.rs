@@ -121,6 +121,8 @@ pub struct LinkedList<T> {
     head: Option<Box<Node<T>>>,
     /// Last element in the list.
     tail: Option<Box<Node<T>>>,
+    /// Number of nodes in the list.
+    size: usize,
 }
 
 impl<T> LinkedList<T> {
@@ -129,19 +131,26 @@ impl<T> LinkedList<T> {
         LinkedList::<T> {
             head: None,
             tail: None,
+            size: 0,
         }
     }
 
     pub fn push_back(&mut self, mut new: T) {
         let new_node = Box::new(Node::new(new));
-        match self.tail {
-            Some(ref mut tail_node) => {
-                tail_node.insert_after(new_node);
-            },
-            None => {
-                mem::swap(&mut self.tail, &mut Some(new_node));
-            },
-        }
+        //if self.size == 0 {
+            // Then `head` and `tail` need to point to the same node.
+            // But can I do that in rust? Have one point as mutable and the other as immutable?!
+        //} else {
+            match self.tail {
+                Some(ref mut tail_node) => {
+                    tail_node.insert_before(new_node);
+                },
+                None => {
+                    mem::swap(&mut self.tail, &mut Some(new_node));
+                },
+            }
+        //}
+        self.size += 1;
     }
 }
 
@@ -212,11 +221,20 @@ fn node_prev() {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_push_back_linked_list() {
+    //#[test]
+    fn test_push_back() {
         let mut list: LinkedList<String> = LinkedList::new();
         list.push_back("one".to_string());
         assert_eq!("one".to_string(), list.tail.unwrap().payload);
+    }
+
+    #[test]
+    fn test_push_back_two() {
+        let mut list: LinkedList<String> = LinkedList::new();
+        list.push_back("one".to_string());
+        list.push_back("two".to_string());
+        //assert_eq!("one".to_string(), list.tail.unwrap().payload);
+        assert_eq!("one".to_string(), list.tail.unwrap().prev.unwrap().payload);
     }
 
 }
