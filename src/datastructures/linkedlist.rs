@@ -137,10 +137,13 @@ impl<T> LinkedList<T> {
 
     pub fn push_back(&mut self, mut new: T) {
         let new_node = Box::new(Node::new(new));
-        //if self.size == 0 {
+        if self.size == 0 {
             // Then `head` and `tail` need to point to the same node.
             // But can I do that in rust? Have one point as mutable and the other as immutable?!
-        //} else {
+
+            // FIXME Create a reference to `head` and `tail` from new_node
+
+            // FIXME Remove placeholder linked Node for tail
             match self.tail {
                 Some(ref mut tail_node) => {
                     tail_node.insert_before(new_node);
@@ -149,7 +152,17 @@ impl<T> LinkedList<T> {
                     mem::swap(&mut self.tail, &mut Some(new_node));
                 },
             }
-        //}
+        } else {
+            match self.tail {
+                Some(ref mut tail_node) => {
+                    tail_node.insert_before(new_node);
+                    // FIXME Replace tail_node with new_node reference
+                },
+                None => {
+                    mem::swap(&mut self.tail, &mut Some(new_node));
+                },
+            }
+        }
         self.size += 1;
     }
 }
