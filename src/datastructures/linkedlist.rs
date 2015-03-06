@@ -156,7 +156,7 @@ impl<T> LinkedList<T> {
             match self.tail {
                 Some(ref mut tail_node) => {
                     tail_node.insert_before(new_node);
-                    // FIXME Replace tail_node with new_node reference
+                    // FIXME #9 Replace tail_node with new_node reference
                 },
                 None => {
                     mem::swap(&mut self.tail, &mut Some(new_node));
