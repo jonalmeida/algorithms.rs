@@ -125,47 +125,48 @@ pub struct LinkedList<T> {
     size: usize,
 }
 
-impl<T> LinkedList<T> {
-    pub fn new() -> LinkedList<T> {
-        //! Create a new LinkedList to contain a payloads with type T.
-        LinkedList::<T> {
-            head: None,
-            tail: None,
-            size: 0,
-        }
-    }
-
-    pub fn push_back(&mut self, mut new: T) {
-        let new_node = Box::new(Node::new(new));
-        if self.size == 0 {
-            // Then `head` and `tail` need to point to the same node.
-            // But can I do that in rust? Have one point as mutable and the other as immutable?!
-
-            // FIXME Create a reference to `head` and `tail` from new_node
-
-            // FIXME Remove placeholder linked Node for tail
-            match self.tail {
-                Some(ref mut tail_node) => {
-                    tail_node.insert_before(new_node);
-                },
-                None => {
-                    mem::swap(&mut self.tail, &mut Some(new_node));
-                },
-            }
-        } else {
-            match self.tail {
-                Some(ref mut tail_node) => {
-                    tail_node.insert_before(new_node);
-                    // FIXME #9 Replace tail_node with new_node reference
-                },
-                None => {
-                    mem::swap(&mut self.tail, &mut Some(new_node));
-                },
-            }
-        }
-        self.size += 1;
-    }
-}
+// impl<T> LinkedList<T> {
+//     pub fn new() -> LinkedList<T> {
+//         //! Create a new LinkedList to contain a payloads with type T.
+//         LinkedList::<T> {
+//             head: None,
+//             tail: None,
+//             size: 0,
+//         }
+//     }
+//
+//     pub fn push_back(&mut self, mut new: T) {
+//         let new_node = Box::new(Node::new(new));
+//         if self.size == 0 {
+//             // Then `head` and `tail` need to point to the same node.
+//             // But can I do that in rust? Have one point as mutable and the other as immutable?!
+//
+//             // FIXME Create a reference to `head` and `tail` from new_node
+//
+//
+//             // FIXME Remove placeholder linked Node for tail
+//             match self.tail {
+//                 Some(ref mut tail_node) => {
+//                     tail_node.insert_before(new_node);
+//                 },
+//                 None => {
+//                     mem::swap(&mut self.tail, &mut Some(new_node));
+//                 },
+//             }
+//         } else {
+//             match self.tail {
+//                 Some(ref mut tail_node) => {
+//                     tail_node.insert_before(new_node);
+//                     // FIXME #9 Replace tail_node with new_node reference
+//                 },
+//                 None => {
+//                     mem::swap(&mut self.tail, &mut Some(new_node));
+//                 },
+//             }
+//         }
+//         self.size += 1;
+//     }
+// }
 
 #[test]
 fn node_new() {
@@ -230,24 +231,24 @@ fn node_prev() {
     assert_eq!("one", *node.prev().unwrap());
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    //#[test]
-    fn test_push_back() {
-        let mut list: LinkedList<String> = LinkedList::new();
-        list.push_back("one".to_string());
-        assert_eq!("one".to_string(), list.tail.unwrap().payload);
-    }
-
-    #[test]
-    fn test_push_back_two() {
-        let mut list: LinkedList<String> = LinkedList::new();
-        list.push_back("one".to_string());
-        list.push_back("two".to_string());
-        //assert_eq!("one".to_string(), list.tail.unwrap().payload);
-        assert_eq!("one".to_string(), list.tail.unwrap().prev.unwrap().payload);
-    }
-
-}
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+//
+//     #[test]
+//     fn test_push_back() {
+//         let mut list: LinkedList<String> = LinkedList::new();
+//         list.push_back("one".to_string());
+//         assert_eq!("one".to_string(), list.tail.unwrap().payload);
+//     }
+//
+//     #[test]
+//     fn test_push_back_two() {
+//         let mut list: LinkedList<String> = LinkedList::new();
+//         list.push_back("one".to_string());
+//         list.push_back("two".to_string());
+//         //assert_eq!("one".to_string(), list.tail.unwrap().payload);
+//         assert_eq!("one".to_string(), list.tail.unwrap().prev.unwrap().payload);
+//     }
+//
+// }
